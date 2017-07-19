@@ -104,12 +104,12 @@ module.exports = {
         }),
 
         new ExtractTextPlugin({
-            filename: "css/name.[hash].css",
+            filename: "css/style.[hash].css",
             allChunks: true
         }),
 
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
+            path: "vendor",
             filename: "js/style.[hash].js"
         }),
 
