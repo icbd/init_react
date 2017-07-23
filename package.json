@@ -6,7 +6,7 @@
   "scripts": {
     "init": "rm -rf .git && git init && git add . && git commit -m 'init' && ls -alF",
     "start": "NODE_ENV=dev webpack-dev-server --progress --colors",
-    "build": "rm -rf ./build && NODE_ENV=production webpack --config ./webpack.production.config.js --progress --colors"
+    "build": "rm -rf ./build/* && NODE_ENV=production webpack --config ./webpack.production.config.js --progress --colors"
   },
   "repository": {
     "type": "git",
@@ -34,11 +34,11 @@
     "json-loader": "^0.5.4",
     "koa": "^2.3.0",
     "koa-router": "^7.2.1",
-    "less": "^2.7.2",
-    "less-loader": "^4.0.5",
+    "node-sass": "^4.5.3",
     "open-browser-webpack-plugin": "0.0.5",
     "postcss-loader": "^2.0.6",
     "react-transform-hmr": "^1.0.4",
+    "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.3.0",

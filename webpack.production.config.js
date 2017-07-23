@@ -30,11 +30,11 @@ module.exports = {
                 ]
             },
             {
-                test: /\.less/,
+                test: /\.scss/,
                 exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: ["css-loader", "postcss-loader", "less-loader"]
+                    use: ["css-loader", "postcss-loader", "sass-loader"]
                 })
             },
             {
@@ -109,8 +109,10 @@ module.exports = {
         }),
 
         new webpack.optimize.CommonsChunkPlugin({
-            path: "vendor",
-            filename: "js/style.[hash].js"
+            name: "vendor",
+            filename: "js/style.[hash].js",
+            minChunks: 1,
+            minSize: Infinity,
         }),
 
     ],
