@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const OpenBrowserPlugin = require("open-browser-webpack-plugin");
 
 module.exports = {
-    entry: path.resolve(__dirname, "./app/index.jsx"),
+    entry: path.resolve(__dirname, "app/index.jsx"),
     output: {
         filename: "bundle-[id]-[hash].js"
     },
@@ -17,7 +17,6 @@ module.exports = {
         rules: [
             {
                 test: /\.js[x]?$/,
-                exclude: /node_modules/,
                 use: [
                     {
                         loader: "babel-loader",
@@ -25,8 +24,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.scss/,
-                exclude: /node_modules/,
+                test: /\.scss$/,
                 use: [
                     "style-loader",
                     "css-loader",
@@ -36,7 +34,6 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
                 use: [
                     "style-loader",
                     "css-loader",
@@ -44,13 +41,10 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|gif|jpg|jpeg|bmp)$/i,
+                test: /\.(png|gif|jpg|jpeg|bmp|ico)$/i,
                 use: [
                     {
                         loader: "url-loader",
-                        options: {
-                            limit: 5000
-                        }
                     }
                 ]
             },
@@ -59,9 +53,6 @@ module.exports = {
                 use: [
                     {
                         loader: "file-loader",
-                        options: {
-                            limit: 5000
-                        }
                     }
                 ]
 
@@ -80,14 +71,10 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            template: __dirname + "/app/index.tmpl.html"
+            template: path.resolve(__dirname, "app/index.tmpl.html")
         }),
 
         new webpack.HotModuleReplacementPlugin(),
-
-        new OpenBrowserPlugin({
-            url: "http://localhost:8080"
-        }),
 
         new webpack.DefinePlugin({
             __DEV__: JSON.stringify(JSON.parse((process.env.NODE_ENV == "dev") || "false"))
@@ -98,7 +85,9 @@ module.exports = {
         historyApiFallback: true,
         inline: true,
         hot: true,
-        port: 8080
+        host: "0.0.0.0",
+        port: 8080,
+        disableHostCheck: true,
     }
 
 };

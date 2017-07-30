@@ -3,15 +3,14 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const pkg = require("./package.json");
-console.log(">>>");
 module.exports = {
     entry: {
-        app: path.resolve(__dirname, "./app/index.jsx"),
+        app: path.resolve(__dirname, "app/index.jsx"),
         vendor: Object.keys(pkg.dependencies)
     },
     output: {
         path: __dirname + "/build/",
-        filename: "js/[name].[hash].js"
+        filename: "js/[name].[chunkhash].js"
     },
 
     resolve: {
@@ -22,7 +21,6 @@ module.exports = {
         rules: [
             {
                 test: /\.js[x]?$/,
-                exclude: /node_modules/,
                 use: [
                     {
                         loader: "babel-loader",
@@ -30,8 +28,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.scss/,
-                exclude: /node_modules/,
+                test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: ["css-loader", "postcss-loader", "sass-loader"]
@@ -39,20 +36,16 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: ["css-loader", "postcss-loader"]
                 })
             },
             {
-                test: /\.(png|gif|jpg|jpeg|bmp)$/i,
+                test: /\.(png|gif|jpg|jpeg|bmp|ico)$/i,
                 use: [
                     {
                         loader: "url-loader",
-                        options: {
-                            limit: 5000
-                        }
                     }
                 ]
             },
@@ -61,9 +54,6 @@ module.exports = {
                 use: [
                     {
                         loader: "file-loader",
-                        options: {
-                            limit: 5000
-                        }
                     }
                 ]
             }
@@ -91,7 +81,7 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            template: __dirname + "/app/index.tmpl.html"
+            template: path.resolve(__dirname, "app/index.tmpl.html")
         }),
 
 
@@ -104,24 +94,15 @@ module.exports = {
         }),
 
         new ExtractTextPlugin({
-            filename: "css/style.[hash].css",
+            filename: "css/style.[chunkhash].css",
             allChunks: true
         }),
 
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendor",
-            filename: "js/style.[hash].js",
-            minChunks: 1,
+            filename: "js/[name].[chunkhash].js",
             minSize: Infinity,
         }),
 
     ],
-
-    devServer: {
-        historyApiFallback: true,
-        inline: true,
-        hot: true,
-        port: 8080
-    }
-
 };
