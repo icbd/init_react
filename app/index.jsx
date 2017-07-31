@@ -2,20 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './static/css/common.scss';
+import './static/css/global.scss';
 
-class Hello extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>React(15.6.1) with Webpack(3.3.0)</h1>
-                <h3>2017-07</h3>
-                <img src="/assets/favicon.ico"/>
-            </div>
-        );
-    }
-}
+
+// init redux store
+import {createStore} from "redux";
+import rootReducer from "./reducers/index.js";
+
+const initialState = {};
+const store = createStore(rootReducer, initialState,
+    window.devToolsExtension ? window.devToolsExtension() : undefined);
+
+
+// startup app with redux and router
+import {Provider} from 'react-redux';
+import {hashHistory} from 'react-router';
+import RouteMap from './router/routeMap';
 
 ReactDOM.render(
-    <Hello/>,
+    <Provider store={store}>
+        <RouteMap history={hashHistory}/>
+    </Provider>
+    ,
     document.getElementById('root')
 );

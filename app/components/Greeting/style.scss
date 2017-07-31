@@ -1,0 +1,51 @@
+@keyframes twitter_greeting {
+  0% {
+    width: 100px;
+  }
+
+  50% {
+    width: 100px;
+  }
+
+  70% {
+    width: 80px;
+  }
+
+  90% {
+    width: 80px;
+  }
+
+  95% {
+    width: 20000px;
+  }
+
+  100% {
+    width: 20000px;
+  }
+}
+
+// 开屏
+.first-greeting {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+  background-color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .first-greeting-logo {
+    display: inline-block;
+    img {
+      animation: twitter_greeting 3s forwards;
+      display: inline-block;
+      margin: auto;
+      width: 100px;
+      height: auto;
+    }
+  }
+}

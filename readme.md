@@ -16,3 +16,38 @@
 
 ## 生产版本构建
 执行 ` npm  run build`
+
+
+# 基本架构
+
+```
+app/
+├── actions # Redux action 生成器
+│   └── userinfo.js
+├── components # 木偶组件
+│   └── readme.md
+├── constants # 常量映射
+│   ├── actionTypes.js
+│   ├── localStoreKey.js
+│   └── readme.md
+├── containers # 智能组件
+│   ├── App.jsx # App 入口
+│   ├── Home    # 根路由
+│   │   └── index.jsx
+│   └── readme.md
+├── fetch    # fetch 请求
+│   └── get_post.js
+├── index.jsx   # 初始化入口, 用于引导Redux和Router
+├── index.tmpl.html # 根模板
+├── reducers    # Redux reducers
+│   ├── index.js # 将分散的reducer汇总一处
+│   └── userinfo.js
+├── router  # 静态路由(2.8)
+│   └── routeMap.jsx
+├── static  # 静态资源
+│   └── css
+│       ├── common.scss # clean up
+│       └── global.scss # 全局样式, sass变量
+└── util # 工具集
+    └── localStore.js # 本地数据存储
+```
