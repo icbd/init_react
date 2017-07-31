@@ -44,6 +44,9 @@ module.exports = {
                 use: [
                     {
                         loader: "url-loader",
+                        options: {
+                            limit: 5000
+                        }
                     }
                 ]
             },
@@ -52,6 +55,9 @@ module.exports = {
                 use: [
                     {
                         loader: "file-loader",
+                        options: {
+                            limit: 5000
+                        }
                     }
                 ]
 

@@ -3,6 +3,8 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const pkg = require("./package.json");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 module.exports = {
     entry: {
         app: path.resolve(__dirname, "app/index.jsx"),
@@ -24,7 +26,7 @@ module.exports = {
                 use: [
                     {
                         loader: "babel-loader",
-                    }
+                    },
                 ]
             },
             {
@@ -46,6 +48,9 @@ module.exports = {
                 use: [
                     {
                         loader: "url-loader",
+                        options: {
+                            limit: 5000
+                        }
                     }
                 ]
             },
@@ -54,9 +59,12 @@ module.exports = {
                 use: [
                     {
                         loader: "file-loader",
+                        options: {
+                            limit: 5000
+                        }
                     }
                 ]
-            }
+            },
         ]
     },
 
@@ -81,7 +89,7 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "app/index.tmpl.html")
+            template: path.resolve(__dirname, "app/index.tmpl.html"),
         }),
 
 
@@ -94,7 +102,7 @@ module.exports = {
         }),
 
         new ExtractTextPlugin({
-            filename: "css/style.[chunkhash].css",
+            filename: "css/style.[contenthash].css",
             allChunks: true
         }),
 
@@ -104,5 +112,12 @@ module.exports = {
             minSize: Infinity,
         }),
 
+        new CopyWebpackPlugin([
+            {
+                from: path.resolve(__dirname, "assets"),
+                to: 'assets',
+                ignore: ['.*']
+            }
+        ]),
     ],
 };
